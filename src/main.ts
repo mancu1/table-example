@@ -1,11 +1,11 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
-import router from './router'
+// Точка входа приложения
 
-const app = createApp(App)
+import { TableUI } from './ui';
 
-app.use(createPinia())
-app.use(router)
+document.addEventListener('DOMContentLoaded', () => {
+  const app = document.getElementById('app');
+  if (app) {
+    new TableUI(app);
+  }
+});
 
-app.mount('#app')
