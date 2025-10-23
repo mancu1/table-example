@@ -126,7 +126,8 @@ export class TableUI {
         <h3>Примеры</h3>
         <button id="example1">Пример 1: Простые значения</button>
         <button id="example2">Пример 2: Формулы</button>
-        <button id="example3">Пример 3: SUM</button>
+        <button id="example3">Пример 3: SUM (относительные)</button>
+        <button id="example4">Пример 4: SUM (абсолютные)</button>
       </div>
     `;
     this.container.appendChild(controls);
@@ -390,6 +391,30 @@ export class TableUI {
       this.table.setValue({ r: 4, c: 2 }, 5);
       this.table.setValue({ r: 4, c: 3 }, 6);
       this.table.setFormula({ r: 5, c: 1 }, '=SUM(A3:C4)');
+      this.render();
+    });
+
+    document.getElementById('example4')?.addEventListener('click', () => {
+      // Демонстрация разных типов диапазонов
+      this.table.setValue({ r: 1, c: 1 }, 10);
+      this.table.setValue({ r: 1, c: 2 }, 20);
+      this.table.setValue({ r: 1, c: 3 }, 30);
+      this.table.setValue({ r: 2, c: 1 }, 40);
+      this.table.setValue({ r: 2, c: 2 }, 50);
+      this.table.setValue({ r: 2, c: 3 }, 60);
+      
+      // A4: относительный диапазон (сдвигается при вставке)
+      this.table.setFormula({ r: 4, c: 1 }, '=SUM(A1:C2)');
+      
+      // B4: абсолютный диапазон (не сдвигается)
+      this.table.setFormula({ r: 4, c: 2 }, '=SUM($A$1:$C$2)');
+      
+      // C4: смешанный (столбцы абсолютные, строки относительные)
+      this.table.setFormula({ r: 4, c: 3 }, '=SUM($A1:$C2)');
+      
+      // D4: смешанный (начало абсолютное, конец относительный)
+      this.table.setFormula({ r: 4, c: 4 }, '=SUM($A$1:C2)');
+      
       this.render();
     });
   }

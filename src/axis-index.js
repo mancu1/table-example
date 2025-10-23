@@ -113,5 +113,17 @@ class AxisIndex {
         const last = this.segments[this.segments.length - 1];
         return last.startPos + last.ids.length - 1;
     }
+    // Общее количество ID во всех сегментах
+    totalIds() {
+        return this.segments.reduce((sum, seg) => sum + seg.ids.length, 0);
+    }
+    // Информация о сегментах для отладки
+    getSegmentsInfo() {
+        return this.segments.map(seg => ({
+            startPos: seg.startPos,
+            count: seg.ids.length,
+            ids: seg.ids.slice(0, 5).concat(seg.ids.length > 5 ? ['...'] : []) // первые 5 ID
+        }));
+    }
 }
 exports.AxisIndex = AxisIndex;
